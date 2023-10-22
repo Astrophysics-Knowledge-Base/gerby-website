@@ -15,11 +15,11 @@ hideComments = ["part", "chapter"]
 extras = {"slogan": Slogan, "history": History, "reference": Reference}
 
 # Tags pattern as used in the tag_up scripts
-TAGS_PATTERN = re.compile("^[0-9a-zA-Z]{6}")
+TAGS_PATTERN = re.compile("^[0-9a-zA-Z]{4}")
 
 # validate whether something is (potentially) a tag
 def isTag(string):
-  return TAGS_PATTERN.match(string) is not None and len(string) == 6
+  return TAGS_PATTERN.match(string) is not None and len(string) == 4
 
 # turn a flat list into a tree based on tag.ref length
 def combine(tags):
@@ -146,7 +146,7 @@ def show_tag(tag):
       html = html + "".join([item.html for item in sorted(tags)])
 
       # add badges for extras: look for HTML code that signifies a tag
-      pattern = re.compile("id=\"([0-9A-Z]{6})\">")
+      pattern = re.compile("id=\"([0-9A-Z]{4})\">")
       identifiers = pattern.findall(html)
 
       references = Reference.select().where(Reference.tag << identifiers)
